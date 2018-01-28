@@ -2,9 +2,8 @@
 % Please edit documentation in R/mmc.modelbased.rtest.R
 \name{mmc.modelbased.rtest}
 \alias{mmc.modelbased.rtest}
-\title{Parametrical Monte Carlo method for testing Pearson correlation coeficient (r) significance under null
-hypothesis (\eqn{H_0: r = 0}) between spatial autodependent data. It uses grf\{geoR\} to simulate GRFs
-with specified parameters and evaluates r between X and Y to each simulation.}
+\title{Model-based MMC for testing significance of Pearson correlation coeficient on spatial
+autodependent data}
 \usage{
 mmc.modelbased.rtest(geodata, X, Y, coords, shuffle = 1, lambda = 1,
   likfit.X = NULL, likfit.Y = NULL, cov.model = "exp", kappa = NULL,
@@ -19,28 +18,28 @@ mmc.modelbased.rtest(geodata, X, Y, coords, shuffle = 1, lambda = 1,
 
 \item{coords}{Data grid (locations). Mandatory.}
 
-\item{shuffle}{If it should be permuted one or both datasets. Allowed values: "single", "s" or 1 and "double", "d" or 2. Default( 1 ).}
+\item{shuffle}{If it should be permuted one or both datasets. Allowed values: "single", "s" or 1 and "double", "d" or 2. Default \code{1}.}
 
-\item{lambda}{Box-Cox transformation parameter. A numeric with shuffle lenght. Default( 1 ).}
+\item{lambda}{Box-Cox transformation parameter. A numeric with shuffle lenght. Default \code{1}.}
 
-\item{likfit.X}{likfit{geoR} X data returned object.}
+\item{likfit.X}{likfit{geoR} X data returned object. Default \code{NULL}.}
 
-\item{likfit.Y}{likfit{geoR} Y data returned object.}
+\item{likfit.Y}{likfit{geoR} Y data returned object. Default \code{NULL}.}
 
 \item{cov.model}{A character with shuffle lenght. It's a string indicating the type of the
-correlation function. Allowed values: see cov.spatial{geoR} manual. Default("exp").}
+correlation function. Allowed values: see cov.spatial{geoR} manual. Default \code{"exp"}.}
 
 \item{kappa}{A numeric with shuffle lenght, it's the smoothness parameter of the correlation function.
 Only required by the following cov.model: "matern", "powered.exponential", "cauchy", "gencauchy"
-and "gneiting.matern". Default( NULL ).}
+and "gneiting.matern". Default \code{NULL}.}
 
-\item{nugget}{tau^2 parameter for cov.model. A numeric with shuffle lenght. Default( 0 ).}
+\item{nugget}{tau^2 parameter for cov.model. A numeric with shuffle lenght. Default \code{0}.}
 
-\item{cov.pars.X}{numeric(2) vector with sigma^2 and phi from X model. Default( NULL ).}
+\item{cov.pars.X}{numeric(2) vector with sigma^2 and phi from X model. Default \code{NULL}.}
 
-\item{cov.pars.Y}{numeric(2) vector with sigma^2 and phi from Y model. Default( NULL ).}
+\item{cov.pars.Y}{numeric(2) vector with sigma^2 and phi from Y model. Default \code{NULL}.}
 
-\item{nSimMMC}{Number of MMC simulations to be done. Allowed integers from 1e2 to 1e4. Default( 1e3 ).}
+\item{nSimMMC}{Number of MMC simulations to be done. Allowed integers from 1e2 to 1e4.Default \code{1e3}.}
 }
 \value{
 r.hat Sample Pearson correlation coefficient.
@@ -53,7 +52,7 @@ differences.phis A vector with differences between phi OLS estimated with origin
 transformed data used as MMC permutation.
 }
 \description{
-Parametrical Monte Carlo method for testing Pearson correlation coeficient (r) significance under null
+Model-based Monte Carlo method for testing Pearson correlation coeficient (r) significance under null
 hypothesis (\eqn{H_0: r = 0}) between spatial autodependent data. It uses grf\{geoR\} to simulate GRFs
 with specified parameters and evaluates r between X and Y to each simulation.
 }

@@ -1,5 +1,8 @@
 #'
-#' Parametrical Monte Carlo method for testing Pearson correlation coeficient (r) significance under null
+#' Model-based MMC for testing significance of Pearson correlation coeficient on spatial
+#' autodependent data
+#'
+#' Model-based Monte Carlo method for testing Pearson correlation coeficient (r) significance under null
 #' hypothesis (\eqn{H_0: r = 0}) between spatial autodependent data. It uses grf\{geoR\} to simulate GRFs
 #' with specified parameters and evaluates r between X and Y to each simulation.
 #'
@@ -8,19 +11,19 @@
 #' @param X X data vector. Mandatory.
 #' @param Y Y data vector. Mandatory.
 #' @param coords Data grid (locations). Mandatory.
-#' @param shuffle If it should be permuted one or both datasets. Allowed values: "single", "s" or 1 and "double", "d" or 2. Default( 1 ).
-#' @param lambda Box-Cox transformation parameter. A numeric with shuffle lenght. Default( 1 ).
-#' @param likfit.X likfit{geoR} X data returned object.
-#' @param likfit.Y likfit{geoR} Y data returned object.
+#' @param shuffle If it should be permuted one or both datasets. Allowed values: "single", "s" or 1 and "double", "d" or 2. Default \code{1}.
+#' @param lambda Box-Cox transformation parameter. A numeric with shuffle lenght. Default \code{1}.
+#' @param likfit.X likfit{geoR} X data returned object. Default \code{NULL}.
+#' @param likfit.Y likfit{geoR} Y data returned object. Default \code{NULL}.
 #' @param cov.model A character with shuffle lenght. It's a string indicating the type of the
-#' correlation function. Allowed values: see cov.spatial{geoR} manual. Default("exp").
+#' correlation function. Allowed values: see cov.spatial{geoR} manual. Default \code{"exp"}.
 #' @param kappa A numeric with shuffle lenght, it's the smoothness parameter of the correlation function.
 #' Only required by the following cov.model: "matern", "powered.exponential", "cauchy", "gencauchy"
-#' and "gneiting.matern". Default( NULL ).
-#' @param nugget tau^2 parameter for cov.model. A numeric with shuffle lenght. Default( 0 ).
-#' @param cov.pars.X numeric(2) vector with sigma^2 and phi from X model. Default( NULL ).
-#' @param cov.pars.Y numeric(2) vector with sigma^2 and phi from Y model. Default( NULL ).
-#' @param nSimMMC Number of MMC simulations to be done. Allowed integers from 1e2 to 1e4. Default( 1e3 ).
+#' and "gneiting.matern". Default \code{NULL}.
+#' @param nugget tau^2 parameter for cov.model. A numeric with shuffle lenght. Default \code{0}.
+#' @param cov.pars.X numeric(2) vector with sigma^2 and phi from X model. Default \code{NULL}.
+#' @param cov.pars.Y numeric(2) vector with sigma^2 and phi from Y model. Default \code{NULL}.
+#' @param nSimMMC Number of MMC simulations to be done. Allowed integers from 1e2 to 1e4.Default \code{1e3}.
 #'
 #'
 #' @return r.hat Sample Pearson correlation coefficient.
