@@ -1,37 +1,47 @@
 #'
-#' Non-parametrical Monte Carlo method for testing Pearson correlation coeficient (r) significance under null
+#' Non-parametrical MMC for testing significance of Pearson correlation coeficient on spatial
+#' autodependent data
+#'
+#' Non-parametrical Monte Carlo Method for testing Pearson correlation coefFicient (r) significance under null
 #' hypothesis (\eqn{H_0: r = 0}) between spatial autodependent data, proposed on Viladomat, et al. 2014.
+#'
+#'
 #' The algorithm follow the steps:
 #'
-#' 1. Permute one (or both) autocorrelated data.
-#' 2. Repeat 3 to 5 N iteration times
-#' 3. Convolute permuted data to reinsert autodependence on it.
-#' 4. Choose the convoluted data which variogram is closer (min least square errors) to the origianl data variogram.
-#' 5. Evaluate correlation between data.
+#'   1. Permute one (or both) autocorrelated data.
 #'
-#' Viladomat, Juia and Mazumder, Rahul and McInturff, Alex and McCauley, Douglas J and Hastie, Trevor. 2014.
+#'   2. Repeat 3 to 5 N iteration times
+#'
+#'   3. Convolute permuted data to reinsert autodependence on it.
+#'
+#'   4. Choose the convoluted data which variogram is closer (min least square errors) to the origianl data variogram.
+#'
+#'   5. Evaluate correlation between data.
+#'
+#'
+#' @references Viladomat, Juia and Mazumder, Rahul and McInturff, Alex and McCauley, Douglas J and Hastie, Trevor. 2014.
 #' Assessing the significance of global and local correlations under spatial autocorrelation: a nonparametric approach.
 #' Biometrics, 2, 409--18, vol 70.
 #'
 #' @param geodata An object of geodata class. Mandatory if X or Y are not setted.
-#' @param X X data vector. Mandatory.
-#' @param Y Y data vector. Mandatory.
-#' @param coords Data grid (locations). Mandatory.
-#' @param shuffle If it should be permuted one or both datasets. Allowed values: "single", "s" or 1 and "double", "d" or 2. Default( 1 ).
-#' @param nConv Number of different window size convolutions must be done. Allowed values are integers between 3 and 20. Default( 10 ).
-#' @param vg.X A variog\{geoR\} X data return object. Default( NULL ).
-#' @param vg.Y A variog\{geoR\} Y data return object. Default( NULL ).
-#' @param vg.uvec.X A vector with distances should be used to build empirical variograms of X variable. Default( NULL ).
-#' @param vg.uvec.Y A vector with distances should be used to build empirical variograms of Y variable. Default( NULL ).
-#' @param vg.maxdist.X The maximum distance that should be used to build empirical variograms of X variable. Default( NULL ).
-#' @param vg.maxdist.Y The maximum distance that should be used to build empirical variograms of Y variable. Default( NULL ).
+#' @param X X data vector. Mandatory if geodata not provided.
+#' @param Y Y data vector. Mandatory if geodata not provided.
+#' @param coords Data grid (locations). Mandatory if geodata not provided.
+#' @param shuffle If it should be permuted one or both datasets. Allowed values: "single", "s" or 1 and "double", "d" or 2. Default \code{1}.
+#' @param nConv Number of different window size convolutions must be done. Allowed values are integers between 3 and 20. Default \code{10}.
+#' @param vg.X A variog\{geoR\} X data return object. Default \code{NULL}.
+#' @param vg.Y A variog\{geoR\} Y data return object. Default \code{NULL}.
+#' @param vg.uvec.X A vector with distances should be used to build empirical variograms of X variable. Default \code{NULL}.
+#' @param vg.uvec.Y A vector with distances should be used to build empirical variograms of Y variable. Default \code{NULL}.
+#' @param vg.maxdist.X The maximum distance that should be used to build empirical variograms of X variable. Default \code{NULL}.
+#' @param vg.maxdist.Y The maximum distance that should be used to build empirical variograms of Y variable. Default \code{NULL}.
 #' @param h.min Smallest locfit delta (h) parameter. If it's not setted and if nn.max ins't setted
 #' , it will be the value corresponding to 10th percentil of distances vector.
 #' @param h.max Biggest locfit delta (h) parameter. If it's not setted and if nn.max ins't setted
 #' , it will be the value corresponding to 50th percentil of distances vector.
 #' @param kernelConv Weight function for convolutions; check man locfit package to see allowed values.
-#' @param nSimMMC Number of MMC simulations to be done. Allowed integers from 1e2 to 1e4. Default( 1e3 ).
-#' @param logVars logical, if the returned object have a vector with estimated MMC r. Default( TRUE ).
+#' @param nSimMMC Number of MMC simulations to be done. Allowed integers from 1e2 to 1e4. Default \code{1e3}.
+#' @param logVars logical, if the returned object have a vector with estimated MMC r. Default \code{TRUE}.
 #'
 #' @return r.hat Sample Pearson correlation coefficient.
 #' @return p.value The empirical p-value obtained.
@@ -44,8 +54,8 @@
 #' @note Warning: The function can be time consuming!
 #' @note Warning: If variog._ is not provided, this function will try to estimate spatial
 #' model parameters with default settings with variofit\{geoR\} function.
-#' It's not a recommended use! Since the autodependence structure affects the correlation coefficient distribution
-#' , a bad parameters estimation can lead to misleading results.
+#' It's not a recommended use! Since the autodependence structure affects the correlation coefficient distribution,
+#' a bad parameters estimation can lead to misleading results.
 #'
 #' @keywords mmc, correlation coeficient significance, geostatistical data, empirical variograms
 #'

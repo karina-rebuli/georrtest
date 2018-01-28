@@ -2,9 +2,8 @@
 % Please edit documentation in R/mmc.variog.rtest.R
 \name{mmc.variog.rtest}
 \alias{mmc.variog.rtest}
-\title{Non-parametrical Monte Carlo method for testing Pearson correlation coeficient (r) significance under null
-hypothesis (\eqn{H_0: r = 0}) between spatial autodependent data, proposed on Viladomat, et al. 2014.
-The algorithm follow the steps:}
+\title{Non-parametrical MMC for testing significance of Pearson correlation coeficient on spatial
+autodependent data}
 \usage{
 mmc.variog.rtest(geodata, X, Y, coords, shuffle = 1, nConv = 10,
   vg.X = NULL, vg.Y = NULL, vg.uvec.X = NULL, vg.uvec.Y = NULL,
@@ -14,27 +13,27 @@ mmc.variog.rtest(geodata, X, Y, coords, shuffle = 1, nConv = 10,
 \arguments{
 \item{geodata}{An object of geodata class. Mandatory if X or Y are not setted.}
 
-\item{X}{X data vector. Mandatory.}
+\item{X}{X data vector. Mandatory if geodata not provided.}
 
-\item{Y}{Y data vector. Mandatory.}
+\item{Y}{Y data vector. Mandatory if geodata not provided.}
 
-\item{coords}{Data grid (locations). Mandatory.}
+\item{coords}{Data grid (locations). Mandatory if geodata not provided.}
 
-\item{shuffle}{If it should be permuted one or both datasets. Allowed values: "single", "s" or 1 and "double", "d" or 2. Default( 1 ).}
+\item{shuffle}{If it should be permuted one or both datasets. Allowed values: "single", "s" or 1 and "double", "d" or 2. Default \code{1}.}
 
-\item{nConv}{Number of different window size convolutions must be done. Allowed values are integers between 3 and 20. Default( 10 ).}
+\item{nConv}{Number of different window size convolutions must be done. Allowed values are integers between 3 and 20. Default \code{10}.}
 
-\item{vg.X}{A variog\{geoR\} X data return object. Default( NULL ).}
+\item{vg.X}{A variog\{geoR\} X data return object. Default \code{NULL}.}
 
-\item{vg.Y}{A variog\{geoR\} Y data return object. Default( NULL ).}
+\item{vg.Y}{A variog\{geoR\} Y data return object. Default \code{NULL}.}
 
-\item{vg.uvec.X}{A vector with distances should be used to build empirical variograms of X variable. Default( NULL ).}
+\item{vg.uvec.X}{A vector with distances should be used to build empirical variograms of X variable. Default \code{NULL}.}
 
-\item{vg.uvec.Y}{A vector with distances should be used to build empirical variograms of Y variable. Default( NULL ).}
+\item{vg.uvec.Y}{A vector with distances should be used to build empirical variograms of Y variable. Default \code{NULL}.}
 
-\item{vg.maxdist.X}{The maximum distance that should be used to build empirical variograms of X variable. Default( NULL ).}
+\item{vg.maxdist.X}{The maximum distance that should be used to build empirical variograms of X variable. Default \code{NULL}.}
 
-\item{vg.maxdist.Y}{The maximum distance that should be used to build empirical variograms of Y variable. Default( NULL ).}
+\item{vg.maxdist.Y}{The maximum distance that should be used to build empirical variograms of Y variable. Default \code{NULL}.}
 
 \item{h.min}{Smallest locfit delta (h) parameter. If it's not setted and if nn.max ins't setted
 , it will be the value corresponding to 10th percentil of distances vector.}
@@ -44,9 +43,9 @@ mmc.variog.rtest(geodata, X, Y, coords, shuffle = 1, nConv = 10,
 
 \item{kernelConv}{Weight function for convolutions; check man locfit package to see allowed values.}
 
-\item{nSimMMC}{Number of MMC simulations to be done. Allowed integers from 1e2 to 1e4. Default( 1e3 ).}
+\item{nSimMMC}{Number of MMC simulations to be done. Allowed integers from 1e2 to 1e4. Default \code{1e3}.}
 
-\item{logVars}{logical, if the returned object have a vector with estimated MMC r. Default( TRUE ).}
+\item{logVars}{logical, if the returned object have a vector with estimated MMC r. Default \code{TRUE}.}
 }
 \value{
 r.hat Sample Pearson correlation coefficient.
@@ -59,24 +58,34 @@ residuals A vector with least squared residuals from original data empirical var
 variogram of choosen permuted and transformed data used as MMC permutation.
 }
 \description{
-1. Permute one (or both) autocorrelated data.
-2. Repeat 3 to 5 N iteration times
-3. Convolute permuted data to reinsert autodependence on it.
-4. Choose the convoluted data which variogram is closer (min least square errors) to the origianl data variogram.
-5. Evaluate correlation between data.
+Non-parametrical Monte Carlo Method for testing Pearson correlation coefFicient (r) significance under null
+hypothesis (\eqn{H_0: r = 0}) between spatial autodependent data, proposed on Viladomat, et al. 2014.
 }
 \details{
-Viladomat, Juia and Mazumder, Rahul and McInturff, Alex and McCauley, Douglas J and Hastie, Trevor. 2014.
-Assessing the significance of global and local correlations under spatial autocorrelation: a nonparametric approach.
-Biometrics, 2, 409--18, vol 70.
+The algorithm follow the steps:
+
+1. Permute one (or both) autocorrelated data.
+
+2. Repeat 3 to 5 N iteration times
+
+3. Convolute permuted data to reinsert autodependence on it.
+
+4. Choose the convoluted data which variogram is closer (min least square errors) to the origianl data variogram.
+
+5. Evaluate correlation between data.
 }
 \note{
 Warning: The function can be time consuming!
 
 Warning: If variog._ is not provided, this function will try to estimate spatial
 model parameters with default settings with variofit\{geoR\} function.
-It's not a recommended use! Since the autodependence structure affects the correlation coefficient distribution
-, a bad parameters estimation can lead to misleading results.
+It's not a recommended use! Since the autodependence structure affects the correlation coefficient distribution,
+a bad parameters estimation can lead to misleading results.
+}
+\references{
+Viladomat, Juia and Mazumder, Rahul and McInturff, Alex and McCauley, Douglas J and Hastie, Trevor. 2014.
+Assessing the significance of global and local correlations under spatial autocorrelation: a nonparametric approach.
+Biometrics, 2, 409--18, vol 70.
 }
 \author{
 Karina Brotto rebuli and Paulo Justiniano Ribeiro Jr.

@@ -2,9 +2,8 @@
 % Please edit documentation in R/mmc.likfit.rtest.R
 \name{mmc.likfit.rtest}
 \alias{mmc.likfit.rtest}
-\title{Parametrical Monte Carlo method for testing Pearson correlation coeficient (r) significance under null
-hypothesis (\eqn{H_0: r = 0}) between spatial autodependent data. Permuted and convoluted data is choosen
-as MMC step by comparing its MLE spatial model parameters  with those from original data.}
+\title{Parametrical MMC for testing significance of Pearson correlation coeficient on spatial
+autodependent data}
 \usage{
 mmc.likfit.rtest(geodata, X, Y, coords, dist.vector = NULL, shuffle = 1,
   nConv = 10, likfit.X = NULL, likfit.Y = NULL, h.min = NULL,
@@ -20,27 +19,27 @@ mmc.likfit.rtest(geodata, X, Y, coords, dist.vector = NULL, shuffle = 1,
 
 \item{coords}{Data grid (locations). Mandatory.}
 
-\item{dist.vector}{A vector with distances. Default( NULL ).}
+\item{dist.vector}{A vector with distances. Default \code{NULL}.}
 
-\item{shuffle}{If it should be permuted one or both datasets. Allowed values: "single", "s" or 1 and "double", "d" or 2. Default( 1 ).}
+\item{shuffle}{If it should be permuted one or both datasets. Allowed values: "single", "s" or 1 and "double", "d" or 2. Default \code{1}.}
 
-\item{nConv}{Number of different window size convolutions must be done. Allowed values are integers between 3 and 20. Default( 10 ).}
+\item{nConv}{Number of different window size convolutions must be done. Allowed values are integers between 3 and 20. Default \code{10}.}
 
-\item{likfit.X}{likfit{geoR} X data returned object.}
+\item{likfit.X}{likfit{geoR} X data returned object. Default \code{NULL}.}
 
-\item{likfit.Y}{likfit{geoR} Y data returned object.}
+\item{likfit.Y}{likfit{geoR} Y data returned object. Default \code{NULL}.}
 
 \item{h.min}{Smallest locfit delta (h) parameter. If it's not setted and if nn.max ins't setted
-, it will be the value corresponding to 10th percentil of distances vector.}
+, it will be the value corresponding to 10th percentil of distances vector. Default \code{NULL}.}
 
 \item{h.max}{Biggest locfit delta (h) parameter. If it's not setted and if nn.max ins't setted
-, it will be the value corresponding to 50th percentil of distances vector.}
+, it will be the value corresponding to 50th percentil of distances vector. Default \code{NULL}.}
 
-\item{kernelConv}{Weight function for convolutions; check man locfit package to see allowed values.}
+\item{kernelConv}{Weight function for convolutions; check man locfit package to see allowed values. Default \code{"gauss"}.}
 
-\item{nSimMMC}{Number of MMC simulations to be done. Allowed integers from 1e2 to 1e4. Default( 1e3 ).}
+\item{nSimMMC}{Number of MMC simulations to be done. Allowed integers from 1e2 to 1e4. DDefault \code{1e3}.}
 
-\item{logVars}{logical, if the returned object have a vector with estimated MMC r. Default( TRUE ).}
+\item{logVars}{logical, if the returned object have a vector with estimated MMC r. Default \code{TRUE}.}
 }
 \value{
 r.hat Sample Pearson correlation coefficient.
@@ -50,13 +49,21 @@ p.value The empirical p-value obtained.
 r.perm A vector with estimated Pearson correlation coefficient in each MMC permutation.
 }
 \description{
-The algorithm follow the steps:
+Parametrical Monte Carlo method for testing Pearson correlation coeficient (r) significance under null
+hypothesis (\eqn{H_0: r = 0}) between spatial autodependent data. Permuted and convoluted data is choosen
+as MMC step by comparing its MLE spatial model parameters  with those from original data.
 }
 \details{
+The algorithm follow the steps:
+
 1. Permute one (or both) autocorrelated data.
-2. Repeat 3 to 5 N iteration times
+
+2. Repeat 3 to 5 N iteration times.
+
 3. Convolute permuted data to reinsert autodependence on it.
+
 4. Choose the convoluted data which MLE parameters is closer (difference) to the origianl data MLE parameters.
+
 5. Evaluate correlation between data.
 }
 \note{
